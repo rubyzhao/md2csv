@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - stable
+install:
+  - npm install
+script:
+  - npm run test-ci
+after_script:
+  - npm install codecov
+  - ./node_modules/.bin/codecov
+  - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls

@@ -1,0 +1,59 @@
+{
+  "name": "md2csv",
+  "version": "0.1.3",
+  "description": "Convert markdown file to csv file",
+  "main": "src/index.js",
+  "files": [
+    "/src", "/bin","/test"
+  ],
+  "bin": {
+    "md2csv": "./bin/md2csv.js"
+  },
+  "scripts": {
+    "test": "mocha",
+    "test-cov": "nyc report --reporter=text-lcov > coverage.lcov",
+    "test-ci": "npm run test && npm run test-cov",
+    "test-c8": "c8 node src/index.js ./test/data.md",
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rubyzhao/md2csv.git"
+  },
+  "homepage": "https://github.com/rubyzhao/md2csv#readme",
+  "engines": {
+    "node": ">=12.11.1"
+  },
+  "bugs": {
+    "url": "https://github.com/rubyzhao/md2csv/issues"
+  },
+  "keywords": [
+    "csv",
+    "markdown",
+    "converter",
+    "md"
+  ],
+  "author": "RubyZhao",
+  "contributors": [
+    {
+      "name": "Claude-Ray",
+      "email": "",
+      "url": "https://github.com/Claude-Ray/md2xlsx"
+    }
+  ],
+  "license": "MIT",
+  
+  "dependencies": {
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "mocha": "^6.2.2"
+  }
+
+}
