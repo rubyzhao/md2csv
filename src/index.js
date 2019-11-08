@@ -1,30 +1,32 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const yargs= require('yargs');
+const yargs = require('yargs');
 module.exports = md2csv;
 //Modified from https://github.com/Claude-Ray/md2xlsx
 
-const { argv } = yargs
-  .usage(
-    `Converts Markdown tables data to CSV file
+const {
+    argv
+} = yargs
+    .version()
+    .usage(
+        `Converts Markdown tables data to CSV file
 (c) 2014-2019 by Rubyzhao, MIT License
-Usage: $0 [options] <mdfile>`
-  )
-  .example(
-    `$0 data.md`,
-    `Converts data.md to data.csv file`
-  )
-  
-  .help('h')
-  .alias('h', 'help')
+Usage: md2csv mdfile`
+    )
+    .example(
+        `md2csv data.md
+     Converts data.md to data.csv file`
+    )
+    .help('h')
+    .alias('h', 'help')
 
 const lastArgument = process.argv.slice(-1)[0]
 
 
 const inputFile = lastArgument.match(/\.md$/i) ? lastArgument : null
 
-//md2csv(inputFile);
+md2csv(inputFile);
 
 /**
  * Convert markdown table to xlsx file
@@ -39,8 +41,8 @@ function md2csv(fpath, opts = {}) {
     const rowArray = toCSV(text);
     const extname = opts.extname || 'csv';
     const basename = opts.basename || path.basename(fpath, path.extname(fpath));
-    const csvFileName=`${basename}.${extname}`
-    writeCSVFile(rowArray,csvFileName );
+    const csvFileName = `${basename}.${extname}`
+    writeCSVFile(rowArray, csvFileName);
     console.log(`${fpath} was converted to ${csvFileName}`)
 };
 /**
@@ -49,11 +51,11 @@ function md2csv(fpath, opts = {}) {
  * @param {string} csvFileName 
  */
 
-function writeCSVFile(rowArray, csvFileName){
+function writeCSVFile(rowArray, csvFileName) {
     const file = fs.createWriteStream(csvFileName);
     rowArray.forEach(row => {
-        if(typeof(row)=='object'){
-            let line=row.map(str => str.trim()).join(',')+'\n'
+        if (typeof (row) == 'object') {
+            let line = row.map(str => str.trim()).join(',') + '\n'
             file.write(line);
         }
     });
@@ -70,22 +72,22 @@ function toCSV(text) {
     if (Buffer.isBuffer(text)) text = text.toString();
     const rows = textParser(text);
     if (!isValidTable(rows))
-      throw new Error(`invalid table`);
+        throw new Error(`invalid table`);
     // splice the dividing line
     rows.splice(1, 1);
     return rows
 }
-  
+
 /**
  * check if the table is valid
  * @param {array[]} cells
  * @return {boolean}
  */
 function isValidTable(cells) {
-return cells.length > 3 &&
-    cells[0] &&
-    cells[0].length === cells[1].length &&
-    /^-+$/.test(cells[1].join(''));
+    return cells.length > 3 &&
+        cells[0] &&
+        cells[0].length === cells[1].length &&
+        /^-+$/.test(cells[1].join(''));
 }
 
 /**

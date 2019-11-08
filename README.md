@@ -12,12 +12,14 @@ npm install md2csv -g
 The test.md can be converted to test.csv using the either of the following ways.
 
 ### Command Line
-md2csv ./test/test.md
+```sh
+md2csv test.md
+```
 
 ### Javascrip
 
 ```js
 const md2csv = require('md2csv');
-md2csv('./test/test.md');
+md2csv('./test.md');
 ```
-The test. 
+
